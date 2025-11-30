@@ -147,6 +147,7 @@ while suma < 100:
 
 #Solución Ejercicio 2:
 
+"""
 # Inicializar variables
 suma = 0
 contador = 0
@@ -188,3 +189,102 @@ print(f"Suma final: {suma}")
 print(f"Números válidos ingresados: {contador}")
 print(f"Números ingresados: {numeros_ingresados}")
 print(f"Operación: {' + '.join(map(str, numeros_ingresados))} = {suma}")
+
+"""
+
+#Leccion 4 - Trabajo con cadena de caracteres
+
+#Ejercicio 1: Iterar estructuras de caracteres.
+
+"""
+Aplicaremos nuestros conocimientos combinando estructuras de control y manipulación de cadenas para 
+resolver problemas prácticos.
+
+Objetivo
+Crear un programa que extraiga información específica de una cadena de texto.
+
+Enunciado: Crea una función llamada extraer_info que reciba como parámetro una cadena de texto 
+representando un correo electrónico con el formato nombre@dominio.extension. La función debe devolver 
+un diccionario con tres claves:
+
+nombre_usuario: la parte del correo antes del símbolo @
+dominio: la parte entre @ y el último punto
+extension: la parte después del último punto
+Por ejemplo, si la entrada es "usuario@ejemplo.com", la función debe devolver:
+
+{
+    "nombre_usuario": "usuario",
+    "dominio": "ejemplo",
+    "extension": "com"
+}
+Si la cadena no contiene el símbolo @ o no tiene extensión (un punto después del @), la función debe 
+devolver un diccionario vacío.
+
+Utiliza los métodos de cadenas y técnicas de slicing que has aprendido para resolver este ejercicio.
+"""
+
+#Solución Ejercicio 1:
+
+def extraer_info(correo):
+    """
+    Extrae nombre de usuario, dominio y extensión de un correo electrónico
+    """
+    # Verificar que el correo no esté vacío
+    if not correo or "@" not in correo:
+        return {}
+    
+    pos_arroba = correo.find("@")
+    
+    # Verificar que hay contenido antes y después del @
+    if pos_arroba == 0 or pos_arroba == len(correo) - 1:
+        return {}
+    
+    # Extraer nombre de usuario (parte antes del @)
+    nombre_usuario = correo[:pos_arroba]
+    
+    # Extraer la parte después del @
+    parte_dominio = correo[pos_arroba + 1:]
+    
+    # Verificar que hay al menos un punto después del @
+    if "." not in parte_dominio:
+        return {}
+    
+    # Encontrar la posición del último punto
+    pos_punto = parte_dominio.rfind(".")
+    
+    # Verificar que hay contenido antes y después del último punto
+    if pos_punto == 0 or pos_punto == len(parte_dominio) - 1:
+        return {}
+    
+    # Extraer dominio y extensión
+    dominio = parte_dominio[:pos_punto]
+    extension = parte_dominio[pos_punto + 1:]
+    
+    # Verificar que todas las partes tienen contenido
+    if nombre_usuario and dominio and extension:
+        return {
+            "nombre_usuario": nombre_usuario,
+            "dominio": dominio,
+            "extension": extension
+        }
+    else:
+        return {}
+
+# PROGRAMA PRINCIPAL - SOLICITA CORREO AL USUARIO
+print("=== EXTRACTOR DE INFORMACIÓN DE CORREOS ===")
+correo_usuario = input("Por favor, ingresa tu correo electrónico: ")
+
+# Procesar el correo
+resultado = extraer_info(correo_usuario)
+
+# Mostrar resultados
+print(f"\n📧 Correo analizado: {correo_usuario}")
+
+if resultado:
+    print("✅ Información extraída:")
+    print(f"   👤 Nombre de usuario: {resultado['nombre_usuario']}")
+    print(f"   🌐 Dominio: {resultado['dominio']}")
+    print(f"   📎 Extensión: {resultado['extension']}")
+else:
+    print("❌ El correo no tiene un formato válido")
+    print("   Formato esperado: nombre@dominio.extension")
