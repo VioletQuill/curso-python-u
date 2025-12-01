@@ -19,7 +19,7 @@ Para empezar, utiliza la función input() para solicitar la entrada y la funció
 dentro del bloque try.
 """
 
-"""
+
 #Solución ejercicio:
 
 try:
@@ -35,7 +35,7 @@ except ValueError:
 except KeyboardInterrupt:
     # Capturar interrupción del usuario (Ctrl+C)
     print("Se ha interrumpido la ejecución del programa.")
-"""
+
 
 #Lección 2: Filtrar y transformar datos
 
@@ -54,7 +54,7 @@ filtrados y luego duplicados).
 
 #Solución ejercicio:
 
-"""
+
 def procesar_numeros(numeros):
     """
     Filtra números pares y los duplica usando filter() y map()
@@ -87,13 +87,11 @@ if __name__ == "__main__":
     print(f"procesar_numeros([10, 15, 20, 25]): {procesar_numeros([10, 15, 20, 25])}")  # [20, 40]
     print(f"procesar_numeros([1, 3, 5]): {procesar_numeros([1, 3, 5])}")  # []
     print(f"procesar_numeros([2, 4, 6, 8]): {procesar_numeros([2, 4, 6, 8])}")  # [4, 8, 12, 16]
-"""
 
 
 # Lección 3: Comprehensions
 
 #Ejercicio
-
 """
 Obejtivo: Objetivo
 Crear una lista de palabras en mayúsculas que tengan más de 4 letras
@@ -124,7 +122,6 @@ print("Palabras con más de 4 letras en mayúsculas:", palabras_filtradas)
 #Lección 4 Iteración múltiple
 
 #Ejercicio:
-
 """
 Objetivo
 Crear una matriz de multiplicación con bucles anidados
@@ -156,7 +153,7 @@ for fila in matriz:
     
     # Lección 5: Generadores
     
-    #Ejercicio:
+    #Ejercicio
     
 """
 Objetivo
@@ -168,6 +165,52 @@ los dos anteriores (0, 1, 1, 2, 3, 5, 8, 13, ...). La función debe aceptar un p
 números de la secuencia debe generar. Si n es menor o igual a 0, el generador no debe producir ningún valor.
 
 Por ejemplo, si llamamos a fibonacci_generator(6), debería generar los valores: 0, 1, 1, 2, 3, 5.
-
-
 """
+
+# Solución
+
+def fibonacci_generator(n):
+    """
+    Generador que produce los primeros n números de la secuencia de Fibonacci.
+    
+    Args:
+        n: Cantidad de números de Fibonacci a generar
+    
+    Yields:
+        Los primeros n números de la secuencia de Fibonacci
+    """
+    # Si n es menor o igual a 0, no generamos ningún valor
+    if n <= 0:
+        return
+    
+    # Casos base de la secuencia de Fibonacci
+    a, b = 0, 1
+    
+    # Generamos los primeros n números
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+# Pruebas del generador
+if __name__ == "__main__":
+    print("Primeros 6 números de Fibonacci:")
+    for num in fibonacci_generator(6):
+        print(num, end=" ")
+    # Salida esperada: 0 1 1 2 3 5
+    
+    print("\n\nPrimeros 10 números de Fibonacci:")
+    for num in fibonacci_generator(10):
+        print(num, end=" ")
+    # Salida esperada: 0 1 1 2 3 5 8 13 21 34
+    
+    print("\n\nPrueba con n=0:")
+    resultado = list(fibonacci_generator(0))
+    print(f"Resultado: {resultado}")  # Debe ser una lista vacía
+    
+    print("\nPrueba con n=1:")
+    resultado = list(fibonacci_generator(1))
+    print(f"Resultado: {resultado}")  # Debe ser [0]
+    
+    print("\nPrueba con n=2:")
+    resultado = list(fibonacci_generator(2))
+    print(f"Resultado: {resultado}")  # Debe ser [0, 1]
